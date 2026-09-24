@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Sakina Tariq — Technology, Data & Business Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --bg-panel: #eeebe2;
+    --ink: #14181f;
+    --ink-soft: #4b5058;
+    --line: #d8d3c6;
+    --accent: #1f6f78;
+    --accent-soft: #e4efee;
+    --gold: #b8873a;
+    --white: #ffffff;
+    --sans: 'Space Grotesk', sans-serif;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --mono: 'JetBrains Mono', monospace;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.3rem 3rem;
+    background: rgba(246,244,239,.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-name { font-family: var(--sans); font-weight: 600; font-size: 1.05rem; letter-spacing: .01em; }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { font-family: var(--sans); font-size: .85rem; color: var(--ink-soft); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  section { padding: 5.5rem 3rem; max-width: 1180px; margin: 0 auto; }
+  .divider { border-bottom: 1px solid var(--line); }
+
+  h2.heading {
+    font-family: var(--sans); font-weight: 600; font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    letter-spacing: -0.01em; margin-bottom: 2.8rem; max-width: 20ch;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 7rem 3rem 5rem;
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: end;
+    max-width: 1180px; margin: 0 auto;
+  }
+  .hero h1 {
+    font-family: var(--sans); font-weight: 700; font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.02; letter-spacing: -0.02em; margin-bottom: 1.3rem;
+  }
+  .hero-role {
+    font-family: var(--serif); font-style: italic; font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--ink-soft); max-width: 42ch; margin-bottom: 1.6rem;
+  }
+  .hero-degrees { display: flex; flex-direction: column; gap: .95rem; }
+  .hero-degree { font-family: var(--mono); font-size: .82rem; color: var(--ink-soft); line-height: 1.5; }
+  .hero-degree strong { display: block; color: var(--ink); font-weight: 500; font-family: var(--sans); font-size: .92rem; margin-bottom: .15rem; }
+  .hero-contact-box {
+    border: 1px solid var(--line); background: var(--white); padding: 1.6rem;
+  }
+  .hero-contact-box .label { font-family: var(--mono); font-size: .72rem; color: var(--accent); letter-spacing: .04em; margin-bottom: .9rem; }
+  .hero-contact-box a, .hero-contact-box .row {
+    display: block; font-family: var(--sans); font-size: .92rem; color: var(--ink);
+    text-decoration: none; padding: .55rem 0; border-bottom: 1px solid var(--line);
+  }
+  .hero-contact-box a:last-child, .hero-contact-box .row:last-child { border-bottom: none; }
+  .hero-contact-box a:hover { color: var(--accent); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { font-size: 1.08rem; margin-bottom: 1.1rem; max-width: 62ch; }
+  .stat-list { display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--white); }
+  .stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 1.1rem 1.4rem; border-bottom: 1px solid var(--line); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .num { font-family: var(--sans); font-weight: 700; font-size: 1.5rem; color: var(--accent); }
+  .stat-row .label { font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); text-align: right; }
+
+  /* TIMELINE (Experience) */
+  .timeline { position: relative; padding-left: 2.2rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: .4rem; bottom: .4rem; width: 1px; background: var(--line); }
+  .tl-item { position: relative; padding-bottom: 3rem; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -2.2rem; top: .35rem;
+    width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+    transform: translateX(4.5px);
+  }
+  .tl-date { font-family: var(--mono); font-size: .76rem; color: var(--accent); letter-spacing: .02em; margin-bottom: .4rem; }
+  .tl-org { font-family: var(--sans); font-weight: 600; font-size: 1.35rem; margin-bottom: .1rem; }
+  .tl-role { font-family: var(--serif); font-style: italic; color: var(--ink-soft); font-size: 1rem; margin-bottom: .9rem; }
+  .tl-item ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; max-width: 68ch; }
+  .tl-item li { font-size: .98rem; position: relative; padding-left: 1.1rem; color: var(--ink); }
+  .tl-item li::before { content: '—'; position: absolute; left: 0; color: var(--ink-soft); }
+
+  /* LEADERSHIP */
+  .lead-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .lead-card { background: var(--white); padding: 1.8rem; }
+  .lead-role { font-family: var(--sans); font-weight: 600; font-size: 1.05rem; margin-bottom: .2rem; }
+  .lead-org { font-family: var(--serif); font-style: italic; color: var(--ink-soft); font-size: .95rem; margin-bottom: .5rem; }
+  .lead-date { font-family: var(--mono); font-size: .72rem; color: var(--accent); }
+
+  /* PROJECTS */
+  .proj-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+  .proj-card { border: 1px solid var(--line); background: var(--white); padding: 2.2rem; }
+  .proj-tag-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .9rem; }
+  .proj-tag { font-family: var(--mono); font-size: .7rem; letter-spacing: .04em; text-transform: uppercase; padding: .25rem .65rem; border: 1px solid var(--line); color: var(--ink-soft); }
+  .proj-title { font-family: var(--sans); font-weight: 600; font-size: 1.4rem; margin-bottom: .2rem; }
+  .proj-org { font-family: var(--serif); font-style: italic; color: var(--ink-soft); font-size: .98rem; margin-bottom: 1.2rem; }
+  .proj-card ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; max-width: 68ch; margin-bottom: 1.3rem; }
+  .proj-card li { font-size: .98rem; position: relative; padding-left: 1.1rem; }
+  .proj-card li::before { content: '—'; position: absolute; left: 0; color: var(--ink-soft); }
+  .proj-link {
+    display: inline-flex; align-items: center; gap: .4rem; font-family: var(--sans); font-size: .88rem;
+    font-weight: 500; color: var(--accent); text-decoration: none;
+  }
+  .proj-link:hover { text-decoration: underline; }
+
+  /* RESEARCH */
+  .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.5rem; }
+  .research-card { border: 1px solid var(--line); background: var(--white); padding: 2.2rem; display: flex; flex-direction: column; }
+  .research-venue { font-family: var(--mono); font-size: .72rem; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; margin-bottom: .8rem; }
+  .research-title { font-family: var(--sans); font-weight: 600; font-size: 1.25rem; line-height: 1.3; margin-bottom: .4rem; }
+  .research-authors { font-family: var(--serif); font-style: italic; color: var(--ink-soft); font-size: .92rem; margin-bottom: 1.1rem; }
+  .research-desc { font-size: .96rem; color: var(--ink); margin-bottom: 1.4rem; }
+  .research-link { margin-top: auto; }
+
+  /* SKILLS */
+  .skills-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .skills-col .col-label { font-family: var(--mono); font-size: .76rem; color: var(--accent); margin-bottom: 1rem; }
+  .pill-wrap { display: flex; flex-wrap: wrap; gap: .55rem; }
+  .skill-pill {
+    font-family: var(--sans); font-size: .84rem; padding: .45rem 1rem;
+    border: 1px solid var(--line); background: var(--white); color: var(--ink);
+  }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .edu-card { border: 1px solid var(--line); background: var(--white); padding: 2rem; position: relative; }
+  .edu-card.current { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .edu-tag { font-family: var(--mono); font-size: .7rem; color: var(--accent); margin-bottom: 1rem; }
+  .edu-card.current .edu-tag { color: #7fd4c9; }
+  .edu-school { font-family: var(--sans); font-weight: 600; font-size: 1.2rem; margin-bottom: .3rem; line-height: 1.25; }
+  .edu-degree { font-family: var(--serif); font-style: italic; font-size: .95rem; color: var(--ink-soft); margin-bottom: 1rem; }
+  .edu-card.current .edu-degree { color: rgba(255,255,255,.7); }
+  .edu-meta { font-family: var(--mono); font-size: .78rem; color: var(--ink-soft); }
+  .edu-card.current .edu-meta { color: rgba(255,255,255,.55); }
+
+  /* CONTACT */
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .contact-text h2 { font-family: var(--sans); font-weight: 700; font-size: clamp(2.2rem, 4.5vw, 3.4rem); letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .contact-text p { color: var(--ink-soft); max-width: 42ch; }
+  .contact-list a {
+    display: flex; justify-content: space-between; align-items: center; text-decoration: none;
+    color: var(--ink); font-family: var(--sans); padding: 1.1rem 0; border-bottom: 1px solid var(--line);
+  }
+  .contact-list a:hover { color: var(--accent); }
+  .contact-list .c-label { font-family: var(--mono); font-size: .72rem; color: var(--accent); }
+
+  footer {
+    padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: .74rem; color: var(--ink-soft); border-top: 1px solid var(--line);
+  }
+  footer span:first-child { color: var(--ink); }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181f; --bg-panel: #191f27; --ink: #f0efe9; --ink-soft: #a9aeb6;
+      --line: #2c333d; --accent: #4fb3ad; --accent-soft: #1d2b2b; --white: #1c222b;
+    }
+    :root:not([data-theme="light"]) .edu-card.current { background: #0c0f14; }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14181f; --bg-panel: #191f27; --ink: #f0efe9; --ink-soft: #a9aeb6;
+    --line: #2c333d; --accent: #4fb3ad; --accent-soft: #1d2b2b; --white: #1c222b;
+  }
+
+  @media (max-width: 900px) {
+    nav, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding-top: 5.5rem; }
+    .about-grid, .skills-cols, .contact-inner { grid-template-columns: 1fr; gap: 2.2rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-name">Sakina Tariq</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#honors">Honors</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div>
+    <h1>Sakina Tariq</h1>
+    <p class="hero-role">MBA candidate working at the intersection of data, AI, and business strategy — training and advancing in operations, IT, and change management.</p>
+    <div class="hero-degrees">
+      <div class="hero-degree"><strong>MBA, Management</strong>Rensselaer Polytechnic Institute, present</div>
+      <div class="hero-degree"><strong>MS, Information Science, AI & Data Analytics</strong>University at Albany, SUNY, May 2026</div>
+      <div class="hero-degree"><strong>BS, Informatics (Software Development), Math Minor</strong>University at Albany, SUNY, May 2025</div>
+    </div>
+  </div>
+  <div class="hero-contact-box">
+    <div class="label">CONTACT</div>
+    <a href="mailto:sakinatariq786@outlook.com">sakinatariq786@outlook.com</a>
+    <div class="row">518-917-3794</div>
+    <a href="https://linkedin.com/in/sakinaztariq/" target="_blank">linkedin.com/in/sakinaztariq</a>
+    <a href="https://github.com/22tariqs" target="_blank">github.com/22tariqs</a>
+  </div>
+</section>
+
+<section id="about" class="divider">
+  <h2 class="heading">About</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>My work sits at the intersection of business operations, people development, and technology enablement. A technical foundation in informatics and data analytics grounds how I approach organizational problems — but the work itself has consistently pulled me toward operations, training, and change management: redesigning how teams work, building the programs that bring people along, and coordinating across stakeholders to get initiatives adopted.</p>
+      <p>Across internships at NYSTEC and NYSED, I've led learning and development initiatives reaching 1,000+ employees — including designing and building an AI Fundamentals training course from the ground up — redesigned project and workflow tracking in Asana to improve team coordination, partnered with stakeholders to scope process and technology changes, and supported risk, governance, and compliance programs across dozens of organizations. The common thread is operations: finding where a process, a team, or a system can run more effectively, and building the training, tools, or workflow to get it there.</p>
+    </div>
+    <div class="stat-list">
+      <div class="stat-row"><span class="num">3</span><span class="label">DEGREES IN PROGRESS<br/>OR COMPLETED</span></div>
+      <div class="stat-row"><span class="num">4</span><span class="label">INTERNSHIPS &<br/>RESEARCH ROLES</span></div>
+      <div class="stat-row"><span class="num">3.9</span><span class="label">GRADUATE<br/>GPA</span></div>
+      <div class="stat-row"><span class="num">MBA</span><span class="label">RPI LALLY<br/>IN PROGRESS</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="divider">
+  <h2 class="heading">Experience</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-date">May 2026 — Aug 2026</div>
+      <div class="tl-org">NYSTEC</div>
+      <div class="tl-role">Intern, Change Management & Learning Development</div>
+      <ul>
+        <li>Developed an AI Fundamentals e-learning course for 50+ users using Articulate Rise 360, supporting AI literacy and digital adoption.</li>
+        <li>Researched and evaluated emerging AI initiatives, organizing findings into a structured crosswalk for technology evaluation.</li>
+        <li>Remediated 40–50 government documents in Adobe Acrobat Pro for WCAG and Section 508 accessibility compliance.</li>
+        <li>Built Asana workflows to support project tracking, coordination, and team visibility.</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Sep 2025 — Dec 2025</div>
+      <div class="tl-org">New York State Education Department (NYSED)</div>
+      <div class="tl-role">Intern, Cybersecurity Analyst</div>
+      <ul>
+        <li>Evaluated cybersecurity policies, procedures, and internal controls across 15–20+ NYS school districts.</li>
+        <li>Supported risk management including phishing simulations, incident response, and malicious domain investigations.</li>
+        <li>Developed and delivered security awareness training to 1,000+ NYSED employees.</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Jan 2025 — May 2025</div>
+      <div class="tl-org">NYSTEC</div>
+      <div class="tl-role">Intern, IgniteU Program</div>
+      <ul>
+        <li>Automated an invoice processing workflow using Azure AI, replacing manual data entry with scanned digitization.</li>
+        <li>Conducted stakeholder interviews and research to inform technology-enabled process improvements.</li>
+        <li>Developed project documentation and tracked milestones in Microsoft Office to support delivery timelines.</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Aug 2024 — May 2025</div>
+      <div class="tl-org">UAlbany — College of Emergency Preparedness, Homeland Security and Cybersecurity</div>
+      <div class="tl-role">Undergraduate / Graduate Researcher</div>
+      <ul>
+        <li>Conducted quantitative research using data analysis and literature review to evaluate cybersecurity behaviors.</li>
+        <li>Investigated ethical and policy-related issues to support risk awareness and mitigation strategies.</li>
+        <li>Analyzed public health data to identify trends and support data-driven reporting.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="leadership" class="divider">
+  <h2 class="heading">Leadership</h2>
+  <div class="lead-grid">
+    <div class="lead-card">
+      <div class="lead-role">TA / Master's Assistant</div>
+      <div class="lead-org">Lally School of Management, RPI</div>
+      <div class="lead-date">Sep 2026 — Present</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Vice President</div>
+      <div class="lead-org">Women in Computing</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Systems Manager / Receptionist</div>
+      <div class="lead-org">Howard Johnson's</div>
+      <div class="lead-date">Jun 2022 — Present</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Student Ambassador</div>
+      <div class="lead-org">University at Albany — CEHC</div>
+      <div class="lead-date">Aug 2024 — Feb 2025</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Off-Campus Senator</div>
+      <div class="lead-org">Student Association, UAlbany</div>
+      <div class="lead-date">Sep 2023 — May 2024</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Academic Tutor</div>
+      <div class="lead-org">University at Albany</div>
+      <div class="lead-date">Aug 2024 — Dec 2024</div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="divider">
+  <h2 class="heading">Projects</h2>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="proj-tag-row">
+        <span class="proj-tag">In Progress</span>
+      </div>
+      <div class="proj-title">Smart Power X</div>
+      <div class="proj-org">Currently working on</div>
+      <ul>
+        <li>Details coming soon.</li>
+      </ul>
+    </div>
+    <div class="proj-card">
+      <div class="proj-tag-row">
+        <span class="proj-tag">NYSTEC Internship Capstone</span>
+        <span class="proj-tag">Instructional Design</span>
+        <span class="proj-tag">Articulate Rise 360</span>
+      </div>
+      <div class="proj-title">AI Workplace Training Module</div>
+      <div class="proj-org">Capstone project, NYSTEC internship</div>
+      <ul>
+        <li>Improved PDF accessibility, helping make documents more accessible to all users.</li>
+        <li>Developed a crosswalk framework exploring the intersection of multiple AI initiatives.</li>
+        <li>Learned and applied instructional design principles using the ADDIE model.</li>
+        <li>Built an AI Workplace Training module in Articulate Rise 360 as the internship's capstone deliverable.</li>
+      </ul>
+      <a href="https://share.articulate.com/5BvQMYZCf1VZroIP8hnAe" target="_blank" class="proj-link">→ View the training module</a>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="divider">
+  <h2 class="heading">Research</h2>
+  <div class="research-grid">
+    <div class="research-card">
+      <div class="research-venue">UAlbany CEHC · Minerva Center for High Impact Learning</div>
+      <div class="research-title">From Coast to Coast: Comparing How Air Pollution Influences Asthma in Two States</div>
+      <div class="research-authors">Sakina Tariq</div>
+      <p class="research-desc">Used the Asthma Equity Explorer to compare PM2.5 concentrations and asthma prevalence across 62 New York counties and 58 California counties. Found particulate matter significantly (though weakly) associated with asthma prevalence in New York, while no significant relationship emerged in California — pointing to geography, terrain, and population density as areas for further study.</p>
+      <a href="PM2_5_NY_vs_CALI_SHOWCASE_POSTER.pdf" target="_blank" class="proj-link research-link">→ View research poster</a>
+    </div>
+    <div class="research-card">
+      <div class="research-venue">UAlbany Showcase · College of Emergency Preparedness, Homeland Security and Cybersecurity</div>
+      <div class="research-title">Digital Safety in the Modern Muslim World</div>
+      <div class="research-authors">Sakina Tariq &amp; Jill Cofield</div>
+      <p class="research-desc">Explored how cybersecurity awareness education can improve digital safety among Muslim communities in the U.S., combining survey-based research, Protection Motivation Theory, and the CyBOK framework with a community-engaged, mixed-methods approach to design culturally relevant training.</p>
+      <a href="Showcase_Poster.pdf" target="_blank" class="proj-link research-link">→ View research poster</a>
+    </div>
+  </div>
+</section>
+
+<section id="honors" class="divider">
+  <h2 class="heading">Honors & Awards</h2>
+  <div class="lead-grid">
+    <div class="lead-card">
+      <div class="lead-role">Irene and Robert P. Bozzone '55 Fellows in Management and Technology Award</div>
+      <div class="lead-org">Lally School of Management, RPI</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Merit Scholarship</div>
+      <div class="lead-org">University at Albany, SUNY</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Summa Cum Laude</div>
+      <div class="lead-org">University at Albany, SUNY</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Honors Medallion</div>
+      <div class="lead-org">University at Albany, SUNY</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Spellman's Award</div>
+      <div class="lead-org">University at Albany, SUNY</div>
+    </div>
+    <div class="lead-card">
+      <div class="lead-role">Dean's List</div>
+      <div class="lead-org">University at Albany, SUNY</div>
+      <div class="lead-date">Dec 2022 — May 2026</div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="divider">
+  <h2 class="heading">Key Skills</h2>
+  <div class="skills-cols">
+    <div class="skills-col">
+      <div class="col-label">BUSINESS & ANALYTICAL</div>
+      <div class="pill-wrap">
+        <span class="skill-pill">Process Improvement</span>
+        <span class="skill-pill">Continuous Improvement</span>
+        <span class="skill-pill">Digital Transformation</span>
+        <span class="skill-pill">Business Analytics</span>
+        <span class="skill-pill">Change Management</span>
+        <span class="skill-pill">Project Management</span>
+        <span class="skill-pill">Data Analysis</span>
+        <span class="skill-pill">Technology Evaluation</span>
+        <span class="skill-pill">Workflow Improvement</span>
+        <span class="skill-pill">Stakeholder Engagement</span>
+        <span class="skill-pill">Risk Management</span>
+        <span class="skill-pill">Governance & Compliance</span>
+        <span class="skill-pill">Instructional Design</span>
+      </div>
+    </div>
+    <div class="skills-col">
+      <div class="col-label">TECHNICAL</div>
+      <div class="pill-wrap">
+        <span class="skill-pill">Excel, PowerPoint & Word</span>
+        <span class="skill-pill">SQL</span>
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">Tableau</span>
+        <span class="skill-pill">Adobe Acrobat Pro</span>
+        <span class="skill-pill">Articulate Rise 360</span>
+        <span class="skill-pill">Asana</span>
+        <span class="skill-pill">Google Workspace</span>
+        <span class="skill-pill">Azure AI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="divider">
+  <h2 class="heading">Education</h2>
+  <div class="edu-grid">
+    <div class="edu-card current">
+      <div class="edu-tag">CURRENT</div>
+      <div class="edu-school">Rensselaer Polytechnic Institute</div>
+      <div class="edu-degree">Master of Business Administration, Management</div>
+      <div class="edu-meta">GPA 3.9 · Rensselaer, NY</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-tag">COMPLETED MAY 2026</div>
+      <div class="edu-school">University at Albany, SUNY</div>
+      <div class="edu-degree">MS, Information Science, AI & Data Analytics</div>
+      <div class="edu-meta">GPA 3.9 · Albany, NY</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-tag">COMPLETED MAY 2025</div>
+      <div class="edu-school">University at Albany, SUNY</div>
+      <div class="edu-degree">BS, Informatics (Software Development), Math Minor</div>
+      <div class="edu-meta">GPA 3.8 · Albany, NY</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-text">
+      <h2>Let's connect.</h2>
+      <p>Open to conversations about AI adoption, data analytics, cybersecurity, or technology strategy roles.</p>
+    </div>
+    <div class="contact-list">
+      <a href="mailto:sakinatariq786@outlook.com"><span>sakinatariq786@outlook.com</span><span class="c-label">EMAIL</span></a>
+      <a href="tel:5189173794"><span>518-917-3794</span><span class="c-label">PHONE</span></a>
+      <a href="https://linkedin.com/in/sakinaztariq/" target="_blank"><span>linkedin.com/in/sakinaztariq</span><span class="c-label">LINKEDIN</span></a>
+      <a href="https://github.com/22tariqs" target="_blank"><span>github.com/22tariqs</span><span class="c-label">GITHUB</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Sakina Tariq</span>
+  <span>MBA, Rensselaer Polytechnic Institute</span>
+</footer>
+
+</body>
+</html>
